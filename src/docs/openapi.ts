@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { githubProfileSchema } from '@/types/github';
 
-const envelope = (dataSchema: object) => ({
+const envelope = (dataSchema: object): object => ({
   type: 'object',
   required: ['success', 'data'],
   properties: {
