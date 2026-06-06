@@ -2,6 +2,8 @@
 
 A REST API that fetches public GitHub profile data by username, stores it in MySQL, and serves it back. Built with Express 5, Drizzle ORM, and TypeScript.
 
+**Live API:** `https://fetcher-production-da21.up.railway.app`
+
 ---
 
 ## Table of Contents
