@@ -12,6 +12,8 @@ const envSchema = z.object({
   CORS_ORIGINS: z.string().default('*'),
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']).default('info'),
   GITHUB_TOKEN: z.string().min(1).optional(),
+  // Production (Railway): set MYSQL_URL and the individual DB_* vars are ignored
+  MYSQL_URL: z.string().url().optional(),
   DB_HOST: z.string().default('localhost'),
   DB_PORT: z.coerce.number().int().positive().default(3306),
   DB_USER: z.string().default('fetcher'),
