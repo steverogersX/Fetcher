@@ -1,0 +1,46 @@
+name: CI / Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+  deploy:
+    name: Deploy to Railway
+    needs: ci
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Trigger Railway deployment
+        run: |
+          curl -sf -X POST https://backboard.railway.app/graphql/v2 \
+            -H "Authorization: Bearer ${{ secrets.RAILWAY_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"query":"mutation { serviceInstanceDeploy(serviceId: \"a96fa2be-0cc3-4d04-ba26-fbf49fec8d3c\", environmentId: \"002d9392-ceac-405e-b205-714c1df606b0\") }"}'
