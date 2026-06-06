@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
@@ -9,6 +12,11 @@ const envSchema = z.object({
   CORS_ORIGINS: z.string().default('*'),
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']).default('info'),
   GITHUB_TOKEN: z.string().min(1).optional(),
+  DB_HOST: z.string().default('localhost'),
+  DB_PORT: z.coerce.number().int().positive().default(3306),
+  DB_USER: z.string().default('fetcher'),
+  DB_PASSWORD: z.string().default('fetcher'),
+  DB_NAME: z.string().default('fetcher'),
 });
 
 export type Env = z.infer<typeof envSchema>;
