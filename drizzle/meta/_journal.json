@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1780719833685,
+      "tag": "0000_bent_whiplash",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { getAllProfiles, getProfileById } from '@/controllers/profiles.controller';
+import { getAllProfilesFromDb, getProfileById } from '@/controllers/profiles.controller';
 
 export const profilesRouter = Router();
 
-profilesRouter.get('/', getAllProfiles);
+profilesRouter.get('/', getAllProfilesFromDb);
 profilesRouter.get('/:id', getProfileById);

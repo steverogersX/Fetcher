@@ -1,0 +1,21 @@
+CREATE TABLE `github_profiles` (
+	`github_id` int NOT NULL,
+	`login` varchar(39) NOT NULL,
+	`avatar_url` varchar(500) NOT NULL,
+	`html_url` varchar(500) NOT NULL,
+	`name` varchar(255),
+	`company` varchar(255),
+	`blog` varchar(500),
+	`location` varchar(255),
+	`bio` text,
+	`email` varchar(254),
+	`public_repos` int NOT NULL DEFAULT 0,
+	`public_gists` int NOT NULL DEFAULT 0,
+	`followers` int NOT NULL DEFAULT 0,
+	`following` int NOT NULL DEFAULT 0,
+	`github_created_at` timestamp NOT NULL,
+	`github_updated_at` timestamp NOT NULL,
+	`fetched_at` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `github_profiles_github_id` PRIMARY KEY(`github_id`),
+	CONSTRAINT `github_profiles_login_unique` UNIQUE(`login`)
+);
