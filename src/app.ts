@@ -7,11 +7,9 @@ import { requestId } from '@/middleware/requestId';
 import { httpLogger } from '@/middleware/httpLogger';
 import { rateLimiter } from '@/middleware/rateLimiter';
 import { errorHandler, notFoundHandler } from '@/middleware/errorHandler';
-import swaggerUi from 'swagger-ui-express';
 import { healthRouter } from '@/routes/health';
 import { itemsRouter } from '@/routes/items';
 import { profilesRouter } from '@/routes/profiles';
-import { openApiSpec } from '@/docs/openapi';
 
 export function createApp(): express.Application {
   const app = express();
@@ -37,8 +35,6 @@ export function createApp(): express.Application {
   app.use('/health', healthRouter);
   app.use('/api/v1/items', itemsRouter);
   app.use('/api/v1/profiles', profilesRouter);
-  app.use('/docs', swaggerUi.serve);
-  app.get('/docs', swaggerUi.setup(openApiSpec));
 
   app.use(notFoundHandler);
   app.use(errorHandler);
