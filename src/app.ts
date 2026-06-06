@@ -10,6 +10,7 @@ import { errorHandler, notFoundHandler } from '@/middleware/errorHandler';
 import { healthRouter } from '@/routes/health';
 import { itemsRouter } from '@/routes/items';
 import { profilesRouter } from '@/routes/profiles';
+import { docsRouter } from '@/routes/docs';
 
 export function createApp(): express.Application {
   const app = express();
@@ -35,6 +36,7 @@ export function createApp(): express.Application {
   app.use('/health', healthRouter);
   app.use('/api/v1/items', itemsRouter);
   app.use('/api/v1/profiles', profilesRouter);
+  app.use('/docs', docsRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
