@@ -28,7 +28,7 @@ function parseEnv(): Env {
 
   if (!result.success) {
     const formatted = result.error.format();
-    console.error('Invalid environment variables:', JSON.stringify(formatted, null, 2));
+    process.stderr.write(`Invalid environment variables: ${JSON.stringify(formatted, null, 2)}\n`);
     process.exit(1);
   }
 
