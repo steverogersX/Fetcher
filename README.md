@@ -18,8 +18,8 @@ A REST API that fetches public GitHub profile data by username, stores it in MyS
 - [Deployment — Railway (Production)](#deployment--railway-production)
 - [Database Schema](#database-schema)
 - [API Reference](#api-reference)
-  - [GET /profiles](#get-profiles)
-  - [GET /profiles/:username](#get-profilesusername)
+  - [GET /api/v1/profiles](#get-apiv1profiles)
+  - [GET /api/v1/profiles/:username](#get-apiv1profilesusername)
 - [Error Responses](#error-responses)
 
 ---
@@ -240,7 +240,7 @@ All responses share the same envelope:
 
 ---
 
-### GET /profiles
+### GET /api/v1/profiles
 
 Returns every profile that has previously been fetched and stored.
 
@@ -249,7 +249,7 @@ Returns every profile that has previously been fetched and stored.
 No parameters, no body.
 
 ```
-GET /profiles
+GET /api/v1/profiles
 ```
 
 #### Response — 200 OK
@@ -304,7 +304,7 @@ Returns an empty array `[]` when no profiles have been fetched yet.
 
 ---
 
-### GET /profiles/:username
+### GET /api/v1/profiles/:username
 
 Fetches the latest data for a GitHub user **live from the GitHub API**, persists it (insert or update), and returns the result. Use this to add a new profile or refresh an existing one.
 
@@ -315,7 +315,7 @@ Fetches the latest data for a GitHub user **live from the GitHub API**, persists
 | Path param | `username` | string | yes | 1–39 chars, alphanumeric and hyphens only, cannot start or end with a hyphen |
 
 ```
-GET /profiles/torvalds
+GET /api/v1/profiles/torvalds
 ```
 
 #### Response — 200 OK
@@ -344,7 +344,7 @@ GET /profiles/torvalds
 }
 ```
 
-> The single-profile response reflects the live GitHub API shape. The list endpoint (`GET /profiles`) returns the stored DB shape, which additionally includes `githubId`, `githubCreatedAt`, `githubUpdatedAt`, and `fetchedAt` in their camelCase Drizzle forms.
+> The single-profile response reflects the live GitHub API shape. The list endpoint (`GET /api/v1/profiles`) returns the stored DB shape, which additionally includes `githubId`, `githubCreatedAt`, `githubUpdatedAt`, and `fetchedAt` in their camelCase Drizzle forms.
 
 #### Response — 404 Not Found
 
@@ -363,7 +363,7 @@ GET /profiles/torvalds
 Returned when the username fails format validation before any network call is made.
 
 ```
-GET /profiles/--bad-username--
+GET /api/v1/profiles/--bad-username--
 ```
 
 ```json
